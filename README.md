@@ -1,7 +1,5 @@
 ## Task-manager MERN project
 
-git clone https://github.com/knezewski/taskManagerMERN.git
-
 ### Frontend run
 
 To start frontend application use this commands
@@ -20,4 +18,9 @@ To start backend application use this commands
 $ yarn
 $ yarn server
 ```
+
+### Env file
+
+Add your mongodb URI
+
 
