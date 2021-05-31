@@ -21,6 +21,8 @@ $ yarn server
 
 ### Env file
 
+```
 Add your mongodb URI and secret word. 
 Look .env.example
+```
 
