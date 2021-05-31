@@ -33,6 +33,15 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  reportButton: {
+    display: 'flex',
+    flexDirection: "column",
+    alignItems: 'center',
+    padding: '10px 20px',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
   activityTitle: {
     textAlign: 'center',
     padding: '20px 20px 0',

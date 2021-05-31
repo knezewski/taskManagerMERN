@@ -392,8 +392,8 @@ export const putComment = (comment) => async (dispatch) => {
 // Add member
 export const addMember = (userId, role) => async (dispatch) => {
   try {
-    const { group, level, label } = role
-    const res = await axios.put(`/api/boards/addMember/${userId}/${group}/${level}/${label}/`);
+    const { group, level, label, value } = role
+    const res = await axios.put(`/api/boards/addMember/${userId}/${group}/${level}/${label}/${value}`);
 
     dispatch({
       type: ADD_MEMBER,
@@ -450,9 +450,8 @@ export const moveList = (listId, formData) => async (dispatch) => {
 // Add card member
 export const addCardMember = (formData) => async (dispatch) => {
   try {
-    const { add, cardId, userId } = formData;
-
-    const res = await axios.put(`/api/cards/addMember/${add}/${cardId}/${userId}`);
+    const { add, cardId, userId, label } = formData;
+    const res = await axios.put(`/api/cards/addMember/${add}/${cardId}/${userId}/${label}`);
 
     dispatch({
       type: ADD_CARD_MEMBER,

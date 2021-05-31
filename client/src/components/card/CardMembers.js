@@ -82,7 +82,7 @@ const CardMembers = ({ card }) => {
         break;
   }}
 
-
+  // console.log(userId)
 
   return (
     <div>
@@ -101,6 +101,7 @@ const CardMembers = ({ card }) => {
                           add: e.target.checked,
                           cardId: card._id,
                           userId: e.target.name,
+                          label: label,
                         })
                       )
                     }

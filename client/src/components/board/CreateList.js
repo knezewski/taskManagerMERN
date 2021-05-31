@@ -26,7 +26,7 @@ const CreateList = () => {
     return isAdmin
   })
 
-  const isAdmin = status[0];
+  const [isAdmin] = status;
 
   const onSubmit = async (e) => {
     e.preventDefault();

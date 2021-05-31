@@ -70,6 +70,11 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     marginTop: "32px",
   },
+  dateFilter: {
+    display: 'flex',
+    flexDirection: "column",
+    justifyContent: 'space-between',
+  },
   checklistFormLabel: {
     width: '100%',
   },

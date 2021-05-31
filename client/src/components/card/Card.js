@@ -54,7 +54,7 @@ const Card = ({ cardId, list, index }) => {
     setMouseOver(false);
   };
 
-  const deadLine = new Date(card && card.selectedDate).toDateString();
+  const deadLine = new Date(card?.selectedDate).toLocaleDateString("ru-RU").split("/");
 
   return !card || (card && card.archived) ? (
     ""

@@ -223,13 +223,28 @@ router.delete('/deleteMember/:userId', [auth, member], async (req, res) => {
     const { userId } = req.params;
     const board = await Board.findById(req.header('boardId'));
 
-    const test = (board.members.map(({user}) => user))
-    console.log(test)
-    // const user = await User.findById(req.params.userId);
-    // if (!user) {
-    //   return res.status(404).json({ msg: 'User not found' });
-    // }
+    const status = board.members.filter(({isAdmin}) => {
+      return isAdmin === true
+    });
 
+    //get board's admin id
+    const userAdmin = status[0].user;
+
+    const user = await User.findById(req.params.userId);
+
+    const index = board.members.findIndex((item) => item.id === userId);
+
+    if ( userId == userAdmin) {
+      res.status(404).send(`Admin can not be deleted`);
+    } else {
+      board.members.splice(index, 1);
+
+      // Log activity
+      board.activity.unshift({
+        text: `${user.name} was deleted from this board`,
+      });
+      await board.save();
+    }
     res.json(board.members);
   } catch (err) {
     console.error(err.message);

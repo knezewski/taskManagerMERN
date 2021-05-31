@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMember, deleteMember } from '../../actions/board';
@@ -20,9 +20,10 @@ const Members = () => {
   const [users, setUsers] = useState([]);
   const [userId, setUserId] = useState('');
   const [role, setRole] = useState('');
-  // const [range, setRange] = useState('');
   const boardMembers = useSelector((state) => state.board.board.members);
   const dispatch = useDispatch();
+
+  const isAmountOfBoardMembersLessFifteen = boardMembers.length < 15 ? true : false;
 
   const handleInputValue = async (newInputValue) => {
     setInputValue(newInputValue);
@@ -49,29 +50,29 @@ const Members = () => {
   };
 
 
-  // const onDeleteMember = async () => {
-  //   dispatch(deleteMember(userId));
-  // };
+  const onDeleteMember = async () => {
+    dispatch(deleteMember(userId));
+  };
 
   const status = boardMember.map(({isAdmin}) => {
     return isAdmin
   })
 
-  const isAdmin = status[0];
+  const [isAdmin] = status;
 
   return (
     <div className='board-members-wrapper'>
       <div className='board-members'>
         {boardMembers.map(({name, user}) => {
           return (
-            <Tooltip title={name} key={user}>
-              <Avatar className='avatar' onMouseOver={() => setUserId(user)}>{getInitials(name)}
+            <Tooltip title={`Delete ${name}`} key={user}>
+              <Avatar className='avatar' onMouseOver={() => setUserId(user)} onDoubleClick={onDeleteMember}>{getInitials(name)}
               </Avatar>
             </Tooltip>
           );
         })}
       </div>{
-        isAdmin && (
+       isAmountOfBoardMembersLessFifteen && isAdmin &&  (
           !inviting ? (
             <Button className='invite' variant='contained' onClick={() => setInviting(true)}>
               Invite
@@ -117,7 +118,6 @@ const Members = () => {
               </div>
             </div>
           )
-
         )
       }
     </div>

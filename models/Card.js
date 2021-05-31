@@ -43,6 +43,9 @@ const CardSchema = new Schema({
         type: String,
         required: true,
       },
+      label: {
+        type: String,
+      },
     },
   ],
   checklist: [

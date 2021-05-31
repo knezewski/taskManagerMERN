@@ -35,7 +35,7 @@ router.post(
       // Assign the card to the list
       const list = await List.findById(listId);
       list.cards.push(card.id);
-      await list.save();
+      await list.save()
 
       // Log activity
       const user = await User.findById(req.user.id);
@@ -197,9 +197,9 @@ router.patch('/move/:id', [auth, member], async (req, res) => {
 });
 
 // Add/Remove a member
-router.put('/addMember/:add/:cardId/:userId', [auth, member], async (req, res) => {
+router.put('/addMember/:add/:cardId/:userId/:label', [auth, member], async (req, res) => {
   try {
-    const { cardId, userId } = req.params;
+    const { cardId, userId, label } = req.params;
     const card = await Card.findById(cardId);
     const user = await User.findById(userId);
     if (!card || !user) {
@@ -214,7 +214,7 @@ router.put('/addMember/:add/:cardId/:userId', [auth, member], async (req, res) =
     }
 
     if (add) {
-      card.members.push({ user: user.id, name: user.name });
+      card.members.push({ user: user.id, name: user.name, label: label});
     } else {
       card.members.splice(index, 1);
     }

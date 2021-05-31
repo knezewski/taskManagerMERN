@@ -8,6 +8,7 @@ import List from '@material-ui/core/List';
 import CloseIcon from '@material-ui/icons/Close';
 import MoveCard from './MoveCard';
 import DeleteCard from './DeleteCard';
+// import DateFilter from '../other/DateFilter';
 import CardMembers from './CardMembers';
 import Typography from '@material-ui/core/Typography';
 import useStyles from '../../utils/modalStyles';
@@ -21,7 +22,8 @@ import {
 } from '@material-ui/pickers';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-
+// import axios from 'axios';
+// import { saveAs } from 'file-saver';
 
 const CardModal = ({ cardId, open, setOpen, card, list }) => {
   const classes = useStyles();
@@ -31,20 +33,23 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
   const [comment, setComment] = useState('');
   const [description, setDescription] = useState(card.description);
   const [selectedDate, setSelectedDate] = useState(card.selectedDate);
-  const [activityChunks, setActivityChunks] = useState(1);
+  const [activityChunks] = useState(1);
+
+  // variables for sending pdf
+  // const members = card.members
+  const listTitle = list.title
+
   const activity = useSelector((state) => state.board.board.activity);
+  // const [documentPdf ] = useState([
+  //   title, level, description, selectedDate, activity, members, listTitle
+  // ]);
+
   const dispatch = useDispatch();
 
-  const isAdmin = card.admin[0] && card.admin[0].user;
+  const isAdmin = card?.admin[0].user;
   const currentUser = user._id;
   const isCardAdmin = isAdmin === currentUser;
 
-  const handleClose = () => {
-    setOpen(false);
-    setActivityChunks(1);
-  };
-
-    // refactor handlesChange
 
   const handleChange = (event) => {
     setLevel(event.target.value);
@@ -74,10 +79,21 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
     dispatch(putComment({comment}));
   };
 
+  // const createAndDownloadPdf = () => {
+  //   axios.post('/api/create-pdf', documentPdf )
+  //     .then(() => axios.get('/api/create-pdf/fetch-pdf', { responseType: 'blob' }))
+  //     .then((res) => {
+  //       const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
+
+  //       saveAs(pdfBlob, 'newPdf.pdf');
+  //     })
+  // }
+
+
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
       <div className={`${classes.paper} ${classes.cardModal}`}>
-      <Typography variant="h6">Column: {list.title}</Typography>
+      <Typography variant="h6">Column: {listTitle}</Typography>
       {
         isCardAdmin ?
         <form onSubmit={(e) => onTitleDescriptionSubmit(e)}>
@@ -135,7 +151,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               }
               className={classes.button}
             >
-              Save All Changes
+              Save Changes
             </Button>
           }
         </form> :
@@ -149,7 +165,9 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               label='Card title'
               value={title}
               className={classes.cardTitle}
-              disabled
+              InputProps={{
+                readOnly: true,
+              }}
             />
           </div>
           <TextField
@@ -159,21 +177,23 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             multiline
             label='Card description'
             value={description}
-            disabled
+            InputProps={{
+              readOnly: true,
+            }}
           />
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="flex-start">
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="dd/MM/yyyy"
-                margin="normal"
-                label="Deadline"
-                value={selectedDate}
-                disabled
-              />
-            </Grid>
-          </MuiPickersUtilsProvider>
+              <Grid container justify="flex-start">
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  format="dd/MM/yyyy"
+                  margin="normal"
+                  label="Deadline"
+                  value={selectedDate}
+                  readOnly
+                />
+              </Grid>
+            </MuiPickersUtilsProvider>
         </form>
       }
         {
@@ -188,19 +208,34 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
                   onChange={handleChange}
                   onBlur={async () => dispatch(editCard(cardId, { label: level }))}
                   >
-                  <MenuItem value="Critical">Critical</MenuItem>
-                  <MenuItem value="High">High</MenuItem>
-                  <MenuItem value="Medium">Medium</MenuItem>
-                  <MenuItem value="Low">Low</MenuItem>
+                  <MenuItem onClick={async () => dispatch(editCard(cardId, { label: level }))} value="none">No label</MenuItem>
+                  <MenuItem onClick={async () => dispatch(editCard(cardId, { label: level }))} value="Critical">Critical</MenuItem>
+                  <MenuItem onClick={async () => dispatch(editCard(cardId, { label: level }))} value="High">High</MenuItem>
+                  <MenuItem onClick={async () => dispatch(editCard(cardId, { label: level }))} value="Medium">Medium</MenuItem>
+                  <MenuItem onClick={async () => dispatch(editCard(cardId, { label: level }))} value="Low">Low</MenuItem>
                 </Select>
-                <Button
+                {/* <Button
                   className={classes.noLabel}
                   variant='outlined'
                   onClick={async () => dispatch(editCard(cardId, { label: 'none' }))}
                 >
                   No Label
-                </Button>
+                </Button> */}
               </div>
+                {/* <div style={{ marginBottom: "1rem"}}>
+                  <DateFilter
+                    items={activity}
+                  />
+                </div>
+                <div className={classes.reportButton}>
+                  <Button
+                    onClick={createAndDownloadPdf}
+                    size="medium"
+                    variant="contained"
+                  >
+                    Download a report
+                  </Button>
+                </div> */}
             </div>
             <div className={classes.modalSection}>
               <MoveCard cardId={cardId} setOpen={setOpen} thisList={list} />
@@ -220,7 +255,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
                   variant="outlined"
                   value={comment}
                   onChange={handleComment}
-                  // onKeyPress={(e) => e.key === 'Enter' && onCommentSubmit(e)}
                 />
                 <Button
                   type='submit'
@@ -235,7 +269,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             </div>
         }
           <List>
-                {activity.slice(0, activityChunks * 10).map((activity) => (
+                {activity.slice(0, activityChunks * 15).map((activity) => (
                   <ListItem key={activity._id}>
                     <ListItemText
                       primary={activity.text}
