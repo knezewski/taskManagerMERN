@@ -38,13 +38,13 @@ module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescriptio
       return members
    })
 
-   const cardMemberLabel= cardMembers.flat().map(({label}) => {
-      return label
-   })
+   // const cardMemberLabel= cardMembers.flat().map(({label}) => {
+   //    return label
+   // })
 
-   const cardMemberName = cardMembers.flat().map(({name}) => {
-      return name
-   })
+   // const cardMemberName = cardMembers.flat().map(({name}) => {
+   //    return name
+   // })
 
 
 
@@ -57,6 +57,25 @@ module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescriptio
    const activityText = filteredActivity?.map(({ text }) => {
       return text
    })
+
+//    <div>
+//    <h4> Card's members </h4>
+//    <p>${cardMemberLabel[0]   ? cardMemberLabel[0]  : " " }  ${cardMemberName[0]   ? cardMemberName[0]  : " " } </p>
+//    <p>${cardMemberLabel[1]   ? cardMemberLabel[1]  : " " }  ${cardMemberName[1]   ? cardMemberName[1]  : " " } </p>
+//    <p>${cardMemberLabel[2]   ? cardMemberLabel[2]  : " " }  ${cardMemberName[2]   ? cardMemberName[2]  : " " } </p>
+//    <p>${cardMemberLabel[3]   ? cardMemberLabel[3]  : " " }  ${cardMemberName[3]   ? cardMemberName[3]  : " " } </p>
+//    <p>${cardMemberLabel[4]   ? cardMemberLabel[4]  : " " }  ${cardMemberName[4]   ? cardMemberName[4]  : " " } </p>
+//    <p>${cardMemberLabel[5]   ? cardMemberLabel[5]  : " " }  ${cardMemberName[5]   ? cardMemberName[5]  : " " } </p>
+//    <p>${cardMemberLabel[6]   ? cardMemberLabel[6]  : " " }  ${cardMemberName[6]   ? cardMemberName[6]  : " " } </p>
+//    <p>${cardMemberLabel[7]   ? cardMemberLabel[7]  : " " }  ${cardMemberName[7]   ? cardMemberName[7]  : " " } </p>
+//    <p>${cardMemberLabel[8]   ? cardMemberLabel[8]  : " " }  ${cardMemberName[8]   ? cardMemberName[8]  : " " } </p>
+//    <p>${cardMemberLabel[9]   ? cardMemberLabel[9]  : " " }  ${cardMemberName[9]   ? cardMemberName[9]  : " " } </p>
+//    <p>${cardMemberLabel[10]  ? cardMemberLabel[10] : " " }  ${cardMemberName[10]  ? cardMemberName[10] : " " } </p>
+//    <p>${cardMemberLabel[11]  ? cardMemberLabel[11] : " " }  ${cardMemberName[11]  ? cardMemberName[11] : " " } </p>
+//    <p>${cardMemberLabel[12]  ? cardMemberLabel[12] : " " }  ${cardMemberName[12]  ? cardMemberName[12] : " " } </p>
+//    <p>${cardMemberLabel[13]  ? cardMemberLabel[13] : " " }  ${cardMemberName[13]  ? cardMemberName[13] : " " } </p>
+//    <p>${cardMemberLabel[14]  ? cardMemberLabel[14] : " " }  ${cardMemberName[14]  ? cardMemberName[14] : " " } </p>
+// </div>
 
 
    return `
@@ -132,24 +151,6 @@ module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescriptio
              <div>
              <h3> Cards: </h3>
              <div class="members-container">
-               <div>
-                  <h4> Card's members </h4>
-                  <p>${cardMemberLabel[0]   ? cardMemberLabel[0]  : " " }  ${cardMemberName[0]   ? cardMemberName[0]  : " " } </p>
-                  <p>${cardMemberLabel[1]   ? cardMemberLabel[1]  : " " }  ${cardMemberName[1]   ? cardMemberName[1]  : " " } </p>
-                  <p>${cardMemberLabel[2]   ? cardMemberLabel[2]  : " " }  ${cardMemberName[2]   ? cardMemberName[2]  : " " } </p>
-                  <p>${cardMemberLabel[3]   ? cardMemberLabel[3]  : " " }  ${cardMemberName[3]   ? cardMemberName[3]  : " " } </p>
-                  <p>${cardMemberLabel[4]   ? cardMemberLabel[4]  : " " }  ${cardMemberName[4]   ? cardMemberName[4]  : " " } </p>
-                  <p>${cardMemberLabel[5]   ? cardMemberLabel[5]  : " " }  ${cardMemberName[5]   ? cardMemberName[5]  : " " } </p>
-                  <p>${cardMemberLabel[6]   ? cardMemberLabel[6]  : " " }  ${cardMemberName[6]   ? cardMemberName[6]  : " " } </p>
-                  <p>${cardMemberLabel[7]   ? cardMemberLabel[7]  : " " }  ${cardMemberName[7]   ? cardMemberName[7]  : " " } </p>
-                  <p>${cardMemberLabel[8]   ? cardMemberLabel[8]  : " " }  ${cardMemberName[8]   ? cardMemberName[8]  : " " } </p>
-                  <p>${cardMemberLabel[9]   ? cardMemberLabel[9]  : " " }  ${cardMemberName[9]   ? cardMemberName[9]  : " " } </p>
-                  <p>${cardMemberLabel[10]  ? cardMemberLabel[10] : " " }  ${cardMemberName[10]  ? cardMemberName[10] : " " } </p>
-                  <p>${cardMemberLabel[11]  ? cardMemberLabel[11] : " " }  ${cardMemberName[11]  ? cardMemberName[11] : " " } </p>
-                  <p>${cardMemberLabel[12]  ? cardMemberLabel[12] : " " }  ${cardMemberName[12]  ? cardMemberName[12] : " " } </p>
-                  <p>${cardMemberLabel[13]  ? cardMemberLabel[13] : " " }  ${cardMemberName[13]  ? cardMemberName[13] : " " } </p>
-                  <p>${cardMemberLabel[14]  ? cardMemberLabel[14] : " " }  ${cardMemberName[14]  ? cardMemberName[14] : " " } </p>
-               </div>
 
                <h4> Card's title, deadline, level</h4>
                 <p>${cardTitle[0]   ?   cardTitle[0]  : " " }      ${cardDeadline[0]   ? cardDeadline[0]  : " " }    ${cardLabel[0]   ? cardLabel[0]  : " " } </p>
