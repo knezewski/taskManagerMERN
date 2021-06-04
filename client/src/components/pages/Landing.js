@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 const Landing = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  if (isAuthenticated) {
+  if (isAuthenticated || null) {
     return <Redirect to='/dashboard' />;
   }
 

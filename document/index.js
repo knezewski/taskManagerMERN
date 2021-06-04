@@ -1,8 +1,6 @@
 module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescription, listsOfBoard, boardTitle, boardDeadline ) => {
 
-   // console.log( `filteredActivity - ${filteredActivity}`) // filteredActivity -
-
-
+   // get board's members
    const labelOfMembers = boardMembers.map(({ label }) => label)
    const nameOfMembers = boardMembers.map(({ name }) => name)
 
@@ -51,9 +49,7 @@ module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescriptio
 
 
    // if no data in item
-   // const showLevel = level ? level : "no status"
    const showDescription = boardDescription ? boardDescription : "no description"
-   // const cardLabel = cardLabel  ? cardLabel === "sdfsdf" : cardLabel
 
 
 

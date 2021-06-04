@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { addMember, deleteMember } from '../../actions/board';
@@ -41,6 +41,11 @@ const Members = () => {
       return boardMembers;
     }
   });
+
+  const cancelAddMember = () => {
+      setInviting(false)
+      setRole('')
+  }
 
   const onSubmit = async () => {
     dispatch(addMember(member._id, role ));
@@ -85,7 +90,7 @@ const Members = () => {
                   onChange={(e) => setRole(e.target.value)}
                 >
                 {
-                  options && options.map((el) => (
+                  options?.map((el) => (
                       <MenuItem key={el.id} value={el}>{el.label}</MenuItem>
                   ))
                 }
@@ -105,14 +110,14 @@ const Members = () => {
               />
               <div className='add-member'>
                 <Button
-                  disabled={!member}
+                  disabled={!role}
                   variant='contained'
                   color='primary'
                   onClick={onSubmit}
                 >
                   Add Member
                 </Button>
-                <Button onClick={() => setInviting(false)}>
+                <Button onClick={cancelAddMember}>
                   <CloseIcon />
                 </Button>
               </div>

@@ -12,8 +12,8 @@ const Navbar = () => {
     return '';
   }
 
-  const name = user && user.name;
-  const email = user && user.email;
+  const name = user?.name;
+  const email = user?.email;
 
   return (
     <nav className='navbar'>

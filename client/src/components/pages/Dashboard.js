@@ -31,7 +31,7 @@ const Dashboard = () => {
     <div className='dashboard-and-navbar'>
       <Navbar />
       <section className='dashboard'>
-        <h1>Welcome {user && user.name}</h1>
+        <h1>Welcome {user?.name}</h1>
         <h2>{boards.length ? "You boards" : "Your have no boards"}</h2>
         {loading && <CircularProgress className='dashboard-loading' />}
         <ul className='boards'>

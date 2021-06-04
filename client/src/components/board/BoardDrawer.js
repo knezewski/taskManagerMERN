@@ -24,7 +24,6 @@ const BoardDrawer = () => {
   const [isShownDatePicker, setIsShownDatePicker] = useState(true);
   const dispatch = useDispatch();
 
-  
   const boardMembers = useSelector((state) => state.board.board.members);
   const activity = useSelector((state) => state.board.board.activity);
   const cardsOfBoard = useSelector((state) => state.board.board.cardObjects);
@@ -36,17 +35,12 @@ const BoardDrawer = () => {
   const filteredActivity = activity.filter((item) => new Date(item.date) >= new Date(startDate) && new Date(item.date) <=  new Date(finishDate))
 
   const [documentPdf, setDocumentPdf ] = useState([]);
-  const [test, setTest ] = useState([])
-
-  // console.log(filteredActivity)
-  // console.log(documentPdf)
 
   useEffect(() => {
-    setTest(filteredActivity)
     setDocumentPdf([
-      boardMembers, test, cardsOfBoard, boardDescription, listsOfBoard, boardTitle, boardDeadline
+      boardMembers, filteredActivity, cardsOfBoard, boardDescription, listsOfBoard, boardTitle, boardDeadline
     ])
-   }, [])
+   }, [startDate, finishDate])
 
 
 
@@ -258,6 +252,59 @@ const BoardDrawer = () => {
                       />
                     </div>
                   </MuiPickersUtilsProvider>
+                  <Divider />
+                <div style={{ marginBottom: "1rem"}}>
+                {isShownDatePicker ?
+                  (
+                    <div>
+                        <Button onClick={showDatePicker}  size="small" variant="contained">
+                          Choose range
+                        </Button>
+                    </div>
+                  ) : (
+                <div className={classes.dateFilter} >
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Grid container justify="flex-start">
+                      <KeyboardDatePicker
+                          disableToolbar
+                          variant="inline"
+                          format="dd/MM/yyyy"
+                          margin="normal"
+                          label="from"
+                          value={startDate}
+                          onChange={handleStartDate}
+                      />
+                      </Grid>
+                    </MuiPickersUtilsProvider>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <Grid container justify="flex-start">
+                      <KeyboardDatePicker
+                          disableToolbar
+                          variant="inline"
+                          format="dd/MM/yyyy"
+                          margin="normal"
+                          label="to "
+                          value={finishDate}
+                          onChange={handleFinishDate}
+                      />
+                      </Grid>
+                    </MuiPickersUtilsProvider>
+                    <Button onClick={showDatePicker}>
+                      <CloseIcon />
+                    </Button>
+                </div>
+              )
+          }
+          </div>
+                  <div className={classes.reportButton}>
+                    <Button
+                      onClick={createAndDownloadPdf}
+                      size="medium"
+                      variant="contained"
+                    >
+                      Download a report
+                    </Button>
+                  </div>
                 </form>
                 )
               }
