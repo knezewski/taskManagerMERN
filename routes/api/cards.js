@@ -20,22 +20,21 @@ router.post(
     }
 
     try {
-      const { title, listId, userId, userName } = req.body;
+      const { title, listId, userId, userName, labelMember } = req.body;
       const boardId = req.header('boardId');
 
       // Create and save the card
-      const newCard = new Card({
-        title,
-        admin: {
-          user: userId,
-          name: userName,
-      }});
+      const newCard = new Card({ title });
       const card = await newCard.save();
 
       // Assign the card to the list
       const list = await List.findById(listId);
       list.cards.push(card.id);
-      await list.save()
+      await list.save();
+
+      // Add user to card's member as admin
+      card.members.push({ user: userId, name: userName, label:labelMember, isAdmin: true });
+      console.log(card)
 
       // Log activity
       const user = await User.findById(req.user.id);

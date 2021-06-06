@@ -62,7 +62,7 @@ const Board = ({ match }) => {
           "url(" +
           (board.backgroundURL
             ? board.backgroundURL
-            : "https://source.unsplash.com/user/aselter/1920x1280") +
+            : "https://source.unsplash.com/tKyXbJNH2bQ/1600x900") +
           ")",
       }}
     >

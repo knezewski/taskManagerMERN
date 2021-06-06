@@ -7,11 +7,20 @@ import CloseIcon from '@material-ui/icons/Close';
 
 const CreateCardForm = ({ listId, setAdding }) => {
   const { user } = useSelector((state) => state.auth);
+  const boardMembers = useSelector((state) => state.board.board.members);
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
 
   const userId = user._id
   const userName = user.name
+  // eslint-disable-next-line array-callback-return
+  const label = boardMembers.filter(item => {
+    if(userId === item.user ) {
+      return boardMembers
+    }
+  }).map(({label}) => label);
+
+  const labelMember = label[0]
 
   const formRef = useRef(null);
   useEffect(() => {
@@ -20,7 +29,7 @@ const CreateCardForm = ({ listId, setAdding }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    dispatch(addCard({ title, listId, userId, userName }));
+    dispatch(addCard({ title, listId, userId, userName, labelMember }));
     setTitle('');
   };
 

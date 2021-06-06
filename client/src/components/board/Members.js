@@ -70,9 +70,13 @@ const Members = () => {
       <div className='board-members'>
         {boardMembers.map(({name, user}) => {
           return (
-            <Tooltip title={`Delete ${name}`} key={user}>
-              <Avatar className='avatar' onMouseOver={() => setUserId(user)} onDoubleClick={onDeleteMember}>{getInitials(name)}
-              </Avatar>
+            <Tooltip title={isAdmin ? `Delete ${name}` : `${name}`} key={user}>
+              {
+                isAdmin ?
+                <Avatar className='avatar' onMouseOver={() => setUserId(user)} onDoubleClick={onDeleteMember}>{getInitials(name)}</Avatar> :
+                <Avatar className='avatar'>{getInitials(name)}</Avatar>
+
+              }
             </Tooltip>
           );
         })}

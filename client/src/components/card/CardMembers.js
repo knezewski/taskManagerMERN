@@ -82,8 +82,6 @@ const CardMembers = ({ card }) => {
         break;
   }}
 
-  // console.log(userId)
-
   return (
     <div>
       <h3 className={classes.membersTitle}>Members</h3>

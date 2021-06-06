@@ -9,6 +9,7 @@ body {
   font-size: 1rem;
   background-color: #eee;
   color: #333;
+  overflow: hidden;
 }
 
 .copyright {

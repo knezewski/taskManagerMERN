@@ -19,6 +19,7 @@ router.post(
 
     try {
       const { title, backgroundURL, description, selectedDate } = req.body;
+
       // Create and save the board
       const newBoard = new Board({ title, backgroundURL, description, selectedDate });
       const board = await newBoard.save();
@@ -29,7 +30,7 @@ router.post(
       await user.save();
 
       // Add user to board's members as admin
-      board.members.push({ user: user.id, name: user.name,  isAdmin: true });
+      board.members.push({ user: user.id, name: user.name, isAdmin: true });
 
       // Log activity
       board.activity.unshift({
@@ -130,7 +131,22 @@ router.patch('/:id/:title/:description/:selectedDate',
       if (req.body.title !== board.title) {
         const user = await User.findById(req.user.id);
         board.activity.unshift({
-          text: `${user.name} renamed this board (from '${board.title}', '${board.description}', '${board.selectedDate}')`,
+          text: `${user.name} renamed this board's title from '${board.title}'`,
+        });
+      }
+
+      if (req.body.description !== board.description) {
+        const user = await User.findById(req.user.id);
+        board.activity.unshift({
+          text: `${user.name} renamed this board's description from '${board.description}'`,
+        });
+      }
+
+      if (req.body.selectedDate !== board.selectedDate) {
+        const user = await User.findById(req.user.id);
+        const formatted = new Date(board.selectedDate).toLocaleDateString("ru-RU").split("/")
+        board.activity.unshift({
+          text: `${user.name} change this board's deadline from '${formatted}' `,
         });
       }
 
@@ -167,7 +183,7 @@ router.patch(
       if (req.body.title !== board.title) {
         const user = await User.findById(req.user.id);
         board.activity.unshift({
-          text: `${user.name} renamed this board (from '${board.title}')`,
+          text: `${user.name} renamed this board from '${board.title}'`,
         });
       }
 
@@ -201,7 +217,7 @@ router.put('/addMember/:userId/:group/:level/:label/:value', [auth, member], asy
     user.boards.unshift(board.id);
     await user.save();
 
-    // Add user to board's members with 'normal' role
+    // Add user to board's members
     board.members.push({ user: user.id, name: user.name,  label:label, group:group, level:level, value:value, isAdmin: false });
 
     // Log activity
@@ -238,6 +254,12 @@ router.delete('/deleteMember/:userId', [auth, member], async (req, res) => {
       res.status(404).send(`Admin can not be deleted`);
     } else {
       board.members.splice(index, 1);
+
+
+      // Delete board from user's boards
+      user.boards.splice( user.boards.indexOf(board.id), 1);
+      await user.save();
+
 
       // Log activity
       board.activity.unshift({
