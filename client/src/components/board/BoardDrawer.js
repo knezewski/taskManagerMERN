@@ -40,9 +40,7 @@ const BoardDrawer = () => {
     setDocumentPdf([
       boardMembers, filteredActivity, cardsOfBoard, boardDescription, listsOfBoard, boardTitle, boardDeadline
     ])
-   }, [startDate, finishDate])
-
-
+  }, [startDate, finishDate])
 
 
   const showDatePicker = () => {
@@ -85,6 +83,9 @@ const BoardDrawer = () => {
 
   const handleClose = () => {
     setOpen(false);
+    setTitle(board.title);
+    setDescription(board.description);
+    handleDateChange(board.selectedDate);
   };
 
   const onSubmit = async (e) => {
@@ -219,6 +220,7 @@ const BoardDrawer = () => {
                 ) : (
                 <form className={classes.drawerForm}>
                   <TextField
+                    disabled
                     variant="outlined"
                     margin="normal"
                     fullWidth
@@ -229,6 +231,7 @@ const BoardDrawer = () => {
                     }}
                   />
                   <TextField
+                    disabled
                     variant="outlined"
                     margin="normal"
                     fullWidth
@@ -242,6 +245,7 @@ const BoardDrawer = () => {
                   utils={DateFnsUtils}>
                     <div className={classes.date}>
                       <KeyboardDatePicker
+                        disabled
                         variant="inline"
                         inputVariant="outlined"
                         label="Deadline"

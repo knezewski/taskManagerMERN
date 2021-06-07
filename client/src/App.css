@@ -9,7 +9,6 @@ body {
   font-size: 1rem;
   background-color: #eee;
   color: #333;
-  overflow: hidden;
 }
 
 .copyright {
@@ -163,7 +162,7 @@ body {
 
 .board-and-navbar {
   background-size: cover;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 .board-and-navbar .navbar {

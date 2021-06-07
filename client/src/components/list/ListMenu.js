@@ -8,7 +8,6 @@ import MoveList from './MoveList';
 
 const ListMenu = ({ listId }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  // const dispatch = useDispatch();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -17,10 +16,6 @@ const ListMenu = ({ listId }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // const archive = async () => {
-  //   dispatch(archiveList(listId, true));
-  // };
 
   return (
     <div>
@@ -36,14 +31,6 @@ const ListMenu = ({ listId }) => {
         <MenuItem onClick={handleClose}>
           <MoreHorizIcon />
         </MenuItem>
-        {/* <MenuItem
-          onClick={() => {
-            archive();
-            handleClose();
-          }}
-        >
-          Archive This List
-        </MenuItem> */}
         <MenuItem>
           <MoveList listId={listId} closeMenu={handleClose} />
         </MenuItem>
