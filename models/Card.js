@@ -15,23 +15,6 @@ const CardSchema = new Schema({
   label: {
     type: String,
   },
-  // admin: [
-  //   {
-  //     _id: false,
-  //     user: {
-  //       type: Schema.Types.ObjectId,
-  //       ref: 'users',
-  //     },
-  //     name: {
-  //       type: String,
-  //       required: true,
-  //     },
-  //     isAdmin: {
-  //       type: Boolean,
-  //       default: true,
-  //     }
-  //   },
-  // ],
   members: [
     {
       _id: false,
