@@ -116,7 +116,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
                 />
               </Grid>
             </MuiPickersUtilsProvider>
-            {isCardAdmin && (
               <Button
                 type="submit"
                 variant="contained"
@@ -132,7 +131,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               >
                 Save Changes
               </Button>
-            )}
           </form>
         ) : (
           <form>
@@ -142,6 +140,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
                 margin="normal"
                 fullWidth
                 multiline
+                disabled
                 label="Card title"
                 value={title}
                 className={classes.cardTitle}
@@ -155,6 +154,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               margin="normal"
               fullWidth
               multiline
+              disabled
               label="Card description"
               value={description}
               InputProps={{
@@ -165,6 +165,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               <Grid container justify="flex-start">
                 <KeyboardDatePicker
                   disableToolbar
+                  disabled
                   variant="inline"
                   format="dd/MM/yyyy"
                   margin="normal"
