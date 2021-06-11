@@ -14,6 +14,7 @@ import { TextField, CardContent, Button, Avatar, Tooltip } from '@material-ui/co
 import CardModal from './CardModal';
 
 const Card = ({ cardId, list, index }) => {
+  const { user } = useSelector((state) => state.auth);
   const [editing, setEditing] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [mouseOver, setMouseOver] = useState(false);
@@ -54,6 +55,12 @@ const Card = ({ cardId, list, index }) => {
     setMouseOver(false);
   };
 
+  const cardCreator = card?.members.map(({ user }) => user)[0];
+  const currentUser = user._id;
+  const isCardAdmin = cardCreator === currentUser;
+  console.log(isCardAdmin)
+
+
   const deadLine = new Date(card?.selectedDate).toLocaleDateString("ru-RU").split("/");
 
   return !card || (card && card.archived) ? (
@@ -78,7 +85,7 @@ const Card = ({ cardId, list, index }) => {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              {mouseOver && !editing && (
+              { isCardAdmin && mouseOver && !editing && (
                 <Button
                   style={{
                     position: "absolute",
@@ -98,7 +105,7 @@ const Card = ({ cardId, list, index }) => {
                 }}
                 ref={cardRef}
               >
-                {card.label && card.label !== "none" && (
+                {card?.label !== "none" && (
                   <div className="card-label">
                     <Typography variant="h6" style={{ marginRight: "8px" }}>
                       Label:
