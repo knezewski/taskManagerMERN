@@ -58,7 +58,6 @@ const Card = ({ cardId, list, index }) => {
   const cardCreator = card?.members.map(({ user }) => user)[0];
   const currentUser = user._id;
   const isCardAdmin = cardCreator === currentUser;
-  console.log(isCardAdmin)
 
 
   const deadLine = new Date(card?.selectedDate).toLocaleDateString("ru-RU").split("/");

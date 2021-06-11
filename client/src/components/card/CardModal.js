@@ -242,7 +242,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             </div>
           </div>
         )}
-        {isCardAdmin && (
           <div className={classes.commentContainer}>
             <form onSubmit={(e) => onCommentSubmit(e)}>
               <TextField
@@ -263,7 +262,6 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
               </Button>
             </form>
           </div>
-        )}
         <List>
           {activity.slice(0, activityChunks * 15).map((activity) => (
             <ListItem key={activity._id}>
