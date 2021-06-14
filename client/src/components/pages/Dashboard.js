@@ -14,7 +14,7 @@ const Dashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    isAuthenticated && token !== null && dispatch(getBoards());
+    dispatch(getBoards());
   }, [dispatch]);
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Dashboard = () => {
   let history = useHistory();
   if ( token === null){
      history.push("/");
+     window.location.reload();
   }
 
   return (
