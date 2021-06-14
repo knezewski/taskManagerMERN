@@ -13,7 +13,7 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Username is required').not().isEmpty(). matches(/^[A-Za-z\s]+$/) .withMessage('Name must be latin alphabetic.'),
+    check('name', 'Username is required').not().isEmpty(). matches(/^[A-Za-z\s]+$/).withMessage('Name must be latin alphabetic.'),
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({
       min: 6,

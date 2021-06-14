@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 
 const Landing = () => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const {isAuthenticated, token} = useSelector((state) => state.auth);
 
-  if (isAuthenticated || null) {
+  if (isAuthenticated && token === true ) {
     return <Redirect to='/dashboard' />;
   }
 

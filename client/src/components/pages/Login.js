@@ -23,8 +23,6 @@ const Login = () => {
     password: "",
   });
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const {auth} = useSelector((state) => state);
-  console.log(auth);
   const dispatch = useDispatch();
 
   const { email, password } = formData;

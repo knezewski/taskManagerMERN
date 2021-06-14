@@ -9,8 +9,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Dashboard = () => {
   const { user, isAuthenticated, token } = useSelector((state) => state.auth);
-  console.log(token);
-  console.log(isAuthenticated );
   const boards = useSelector((state) => state.board.boards);
   const loading = useSelector((state) => state.board.dashboardLoading);
   const dispatch = useDispatch();
@@ -24,7 +22,9 @@ const Dashboard = () => {
   }, []);
 
   let history = useHistory();
-  token == null && history.push("/");
+  if ( token === null){
+     history.push("/");
+  }
 
   return (
     <div className="dashboard-and-navbar">
