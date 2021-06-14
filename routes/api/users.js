@@ -13,7 +13,7 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    check('name', 'Name is required').not().isEmpty(),
+    check('name', 'Username is required').not().isEmpty(). matches(/^[A-Za-z\s]+$/) .withMessage('Name must be latin alphabetic.'),
     check('email', 'Please include a valid email').isEmail(),
     check('password', 'Please enter a password with 6 or more characters').isLength({
       min: 6,
@@ -31,6 +31,9 @@ router.post(
       // See if user exists
       if (await User.findOne({ email })) {
         return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      }
+      if (await User.findOne({ name })) {
+        return res.status(400).json({ errors: [{ msg: 'Username already exists' }] });
       }
 
       // Register new user

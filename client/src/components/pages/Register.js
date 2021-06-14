@@ -64,7 +64,7 @@ const Register = () => {
                 variant='outlined'
                 required
                 fullWidth
-                label='Your Name'
+                label='Your Username'
                 value={name}
                 onChange={(e) => onChange(e)}
               />

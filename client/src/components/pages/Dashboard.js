@@ -8,13 +8,15 @@ import Navbar from "../other/Navbar";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Dashboard = () => {
-  const { user, isAuthenticated } = useSelector((state) => state.auth);
+  const { user, isAuthenticated, token } = useSelector((state) => state.auth);
+  console.log(token);
+  console.log(isAuthenticated );
   const boards = useSelector((state) => state.board.boards);
   const loading = useSelector((state) => state.board.dashboardLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getBoards());
+    isAuthenticated && token !== null && dispatch(getBoards());
   }, [dispatch]);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ const Dashboard = () => {
   }, []);
 
   let history = useHistory();
-  !isAuthenticated &&  history.push("/");
+  token == null && history.push("/");
 
   return (
     <div className="dashboard-and-navbar">
