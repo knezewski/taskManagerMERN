@@ -1,7 +1,7 @@
 // https://github.com/mui-org/material-ui/tree/master/docs/src/pages/getting-started/templates/sign-up
 
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import useStyles from '../../utils/formStyles';
 
 const Register = () => {
@@ -27,6 +28,7 @@ const Register = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  let history = useHistory();
 
   useEffect(() => {
     document.title = 'Sign Up';
@@ -49,13 +51,22 @@ const Register = () => {
     return <Redirect to='/dashboard' />;
   }
 
+  const backToLanding = () => {
+    history.push("/");
+  }
+
   return (
     <Container component='main' maxWidth='xs' className={classes.container}>
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component='h1' variant='h5'>
-          Sign up
-        </Typography>
+      <div className={classes.header}>
+          <Button onClick={backToLanding}>
+            <ArrowBackIcon />
+          </Button>
+          <Typography component="h1" variant="h5" style={{ marginLeft:"119px"}}>
+            Sign up
+          </Typography>
+        </div>
         <form className={classes.form} onSubmit={(e) => onSubmit(e)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
