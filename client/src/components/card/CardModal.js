@@ -66,7 +66,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
 
   const onCommentSubmit = async (e) => {
     e.preventDefault();
-    dispatch(putComment({ comment }));
+    dispatch(putComment({ comment, list, cardId }));
   };
 
   return (
@@ -116,21 +116,21 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
                 />
               </Grid>
             </MuiPickersUtilsProvider>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={
-                  title === card.title &&
-                  (description === card.description ||
-                    (description === "" && !card.description)) &&
-                  (selectedDate === card.selectedDate ||
-                    (selectedDate === "" && !card.selectedDate))
-                }
-                className={classes.button}
-              >
-                Save Changes
-              </Button>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={
+                title === card.title &&
+                (description === card.description ||
+                  (description === "" && !card.description)) &&
+                (selectedDate === card.selectedDate ||
+                  (selectedDate === "" && !card.selectedDate))
+              }
+              className={classes.button}
+            >
+              Save Changes
+            </Button>
           </form>
         ) : (
           <form>
@@ -242,26 +242,26 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
             </div>
           </div>
         )}
-          <div className={classes.commentContainer}>
-            <form onSubmit={(e) => onCommentSubmit(e)}>
-              <TextField
-                fullWidth
-                label="Comment"
-                variant="outlined"
-                value={comment}
-                onChange={handleComment}
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                disabled={!comment}
-                className={classes.button}
-              >
-                Post comment
-              </Button>
-            </form>
-          </div>
+        <div className={classes.commentContainer}>
+          <form onSubmit={(e) => onCommentSubmit(e)}>
+            <TextField
+              fullWidth
+              label="Comment"
+              variant="outlined"
+              value={comment}
+              onChange={handleComment}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={!comment}
+              className={classes.button}
+            >
+              Post comment
+            </Button>
+          </form>
+        </div>
         <List>
           {activity.slice(0, activityChunks * 15).map((activity) => (
             <ListItem key={activity._id}>
