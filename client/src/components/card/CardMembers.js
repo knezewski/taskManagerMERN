@@ -1,93 +1,141 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
-import { addCardMember } from '../../actions/board';
-import { Checkbox, FormGroup, FormControlLabel, FormControl } from '@material-ui/core';
-import useStyles from '../../utils/modalStyles';
-
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { addCardMember } from "../../actions/board";
+import {
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  FormControl,
+} from "@material-ui/core";
+import useStyles from "../../utils/modalStyles";
 
 const CardMembers = ({ card }) => {
   const classes = useStyles();
-  const [filteredMembers, setFilteredMembers] = useState('');
+  const [filteredMembers, setFilteredMembers] = useState("");
   const { user } = useSelector((state) => state.auth);
   const boardMembers = useSelector((state) => state.board.board.members);
-  const members = card.members.map(({user}) => user);
+  const members = card.members.map(({ user }) => user);
   const dispatch = useDispatch();
 
   //check role of admin
-  const boardMember = boardMembers.filter(item => {
-    if(user.name === item.name ) {
-      return boardMembers
+  const boardMember = boardMembers.filter((item) => {
+    if (user.name === item.name) {
+      return boardMembers;
     }
   });
 
-  const getRole = boardMember.map(({value}) => {
+  const getRole = boardMember.map(({ value }) => {
     return value;
   });
 
   const currentRole = getRole[0];
 
   useEffect(() => {
-    filteredByRole()
-  }, [] )
+    filteredByRole();
+  }, []);
+
 
   const filteredByRole = () => {
-    let items = '';
+    let items = "";
 
     switch (currentRole) {
       case "project-manager":
-          setFilteredMembers(boardMembers)
-          break;
-      case "front-end-senior" || "back-end-senior":
-          items = boardMembers.filter(({group, level}) => level >=1 && group === "front" && "back" && "analyst");
-          setFilteredMembers(items);
+        setFilteredMembers(boardMembers);
         break;
-      case "front-end-middle" || "back-end-middle":
-          items = boardMembers.filter(({group, level}) => level <=2 && group === "front" && "back" && "analyst");
-          setFilteredMembers(items);
+      case "front-end-senior":
+        items = boardMembers.filter(({ group, level }) => {
+          return level >= 1 && group === "front";
+        });
+        setFilteredMembers(items);
+        break;
+      case "back-end-senior":
+        items = boardMembers.filter(({ group, level }) => {
+          return level >= 1 && group === "back";
+        });
+        setFilteredMembers(items);
+        break;
+      case "front-end-middle":
+        items = boardMembers.filter(({ group, level }) => {
+          return level <= 2 && group === "front";
+        });
+        setFilteredMembers(items);
+        break;
+      case "back-end-middle":
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level <= 2 && group === "back"
+        );
+        setFilteredMembers(items);
         break;
       case "qa-senior":
-          items = boardMembers.filter(({group, level}) => level >=1 && group === "front" && "back" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level >= 1 && group === "qa"
+        );
+        setFilteredMembers(items);
         break;
       case "qa-middle":
-        items = boardMembers.filter(({group, level}) => level <=2 && group === "qa" && "back" && "front" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level <= 2 && group === "qa"
+        );
+        setFilteredMembers(items);
         break;
       case "business-analyst-senior":
-      items = boardMembers.filter(({group, level}) => level >=1 && group === "front" && "back" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level >= 1 && group === "analyst"
+        );
+        setFilteredMembers(items);
         break;
       case "business-analyst-middle":
-      items = boardMembers.filter(({group, level}) => level <=2 && group === "front" && "back" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level <= 2 && group === "analyst"
+        );
+        setFilteredMembers(items);
         break;
       case "ux-ui-senior":
-      items = boardMembers.filter(({group, level}) => level >=1 && group === "front" && "back" && "ux-ui" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level >= 1 && group === "ux-ui"
+        );
+        setFilteredMembers(items);
         break;
       case "ux-ui-middle":
-      items = boardMembers.filter(({group, level}) => level <=2 && group === "front" && "back" && "ux-ui" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) =>
+            level <= 2 && group ===  "ux-ui"
+        );
+        setFilteredMembers(items);
         break;
       case "marketing-specialist-senior":
-      items = boardMembers.filter(({group, level}) => level >=1 && group === "ux-ui" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) => level >= 1 && group === "ux-ui"
+        );
+        setFilteredMembers(items);
         break;
       case "marketing-specialist-middle":
-      items = boardMembers.filter(({group, level}) => level <=2 && group === "ux-ui" && "analyst");
-          setFilteredMembers(items);
+        items = boardMembers.filter(
+          ({ group, level }) => level <= 2 && group === "ux-ui"
+        );
+        setFilteredMembers(items);
         break;
       default:
         break;
-  }}
+    }
+  };
 
   return (
     <div>
-      <h3 className={classes.membersTitle}>Members</h3>
-      <FormControl component='fieldset'>
-          <FormGroup>
-            { filteredMembers && filteredMembers.map(({user, label, name}) => (
+      <h3 className={classes.membersTitle}>
+        Members
+      </h3>
+      <FormControl component="fieldset">
+        <FormGroup>
+          {filteredMembers &&
+            filteredMembers.map(({ user, label, name }) => (
               <FormControlLabel
                 key={user}
                 control={
@@ -109,7 +157,7 @@ const CardMembers = ({ card }) => {
                 label={`${name} ${label ? label : ""}`}
               />
             ))}
-          </FormGroup>
+        </FormGroup>
       </FormControl>
     </div>
   );
