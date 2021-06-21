@@ -274,7 +274,7 @@ router.delete("/deleteMember/:userId", [auth, member], async (req, res) => {
 
     const user = await User.findById(req.params.userId);
 
-    const index = board.members.findIndex((item) => item.id === userId);
+    const index = board.members.findIndex((item) => item.user == userId);
 
     if (userId == userAdmin) {
       res.status(404).send(`Admin can not be deleted`);
