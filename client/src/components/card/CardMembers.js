@@ -106,19 +106,19 @@ const CardMembers = ({ card }) => {
       case "ux-ui-middle":
         items = boardMembers.filter(
           ({ group, level }) =>
-            level <= 2 && group ===  "ux-ui"
+            level <= 2 && group === "ux-ui"
         );
         setFilteredMembers(items);
         break;
       case "marketing-specialist-senior":
         items = boardMembers.filter(
-          ({ group, level }) => level >= 1 && group === "ux-ui"
+          ({ group, level }) => level >= 1 && group === "marketing"
         );
         setFilteredMembers(items);
         break;
       case "marketing-specialist-middle":
         items = boardMembers.filter(
-          ({ group, level }) => level <= 2 && group === "ux-ui"
+          ({ group, level }) => level <= 2 && group === "marketing"
         );
         setFilteredMembers(items);
         break;
