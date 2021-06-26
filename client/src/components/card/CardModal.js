@@ -66,7 +66,7 @@ const CardModal = ({ cardId, open, setOpen, card, list }) => {
 
   const onCommentSubmit = async (e) => {
     e.preventDefault();
-    dispatch(putComment({ comment, list, cardId }));
+    dispatch(putComment({ comment, list, card }));
   };
 
   return (
