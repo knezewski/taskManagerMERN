@@ -107,7 +107,6 @@ module.exports = ( boardMembers, filteredActivity, cardsOfBoard, boardDescriptio
             <h3> Board title: ${boardTitle}</h3>
             <h3> Board description: ${showDescription}</h3>
             <h3> Board deadline: ${deadLineOfBoard}</h3>
-            <h3> Description: ${showDescription}</h3>
             <div>
                <h3> Board lists: </h3>
                <div class="members-container">
